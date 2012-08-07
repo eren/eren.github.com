@@ -1,4 +1,4 @@
 eren.github.com
 ===============
 
-Github page.
+Personal blog for me using Jekyll.
