@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /test/
+
+Sitemap: http://rus.har.mn/sitemap.xml

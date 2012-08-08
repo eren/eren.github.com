@@ -1,0 +1,25 @@
+auto: true
+pygments: true
+permalink: /blog/:year/:month/:day/:title
+markdown: maruku
+
+domain: localhost:4000
+description: The personal website and blog of Eren Turkay
+#disqus_developer: 1
+#birthdate: August 9, 1988
+#disqus_shortname: erenturkay
+twitter_username: erenturkay
+#google_latitude_id: 4048757213362106746
+#google_analytics_id: UA-10349264-2
+#google_plus_id: 112862864127564162879
+sitemap_exclude: /test/
+
+github_username: eren
+github_excludes: eren.github.com
+
+maruku:
+    use_divs: true
+    use_tex: true
+    png_engine: blahtex
+    png_dir: images/latex/
+    png_url: /images/latex/
