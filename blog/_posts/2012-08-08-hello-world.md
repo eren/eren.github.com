@@ -7,7 +7,7 @@ excerpt:
     Bu multi paragraf bir except oldu. Bu da textwidth astiginda nasil
     gorunecegine dagir bir sey olacak. Bence gayet tek satirda gorunecek
 
-category:
+categories:
     - en
     - blog
 tags:

@@ -10,7 +10,7 @@ Testing
 
 ## Son yazılar
 
-{% for post in site.categories.blog limit: 10 %}
+{% for post in paginator.posts %}
 <div class="section list">
 	<h1>{{ post.date | date_to_string }}</h1>
 	<p class="line">
@@ -21,12 +21,21 @@ Testing
 </div>
 {% endfor %}
 
-{% comment %}
-<!-- TODO: re-add when I have more than ten posts -->
-<p>
-	<a href="past.html">Older Posts →</a>
-</p>
-{% endcomment %}
+
+<div class='paging'>
+{% if paginator.previous_page %}
+  {% if paginator.previous_page == 1 %}
+    <a href='/' class='newer'><h1>Yeni Yazılar</h1></a>
+  {% else %}
+    <a href='/page{{paginator.previous_page}}' class='newer'><h1>Yeni Yazılar</h1></a>
+  {% endif %}
+{% endif %}
+{% if paginator.next_page %}
+  <a href='/page{{paginator.next_page}}' class='older'><h1>Eski Yazılar</h1></a>
+{% endif %}
+  
+</div>
+
 
 {% unless site.disqus_shortname == null %}
 <script type="text/javascript">

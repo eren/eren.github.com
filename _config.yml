@@ -11,7 +11,7 @@ base_url: http://localhost:4000
 
 paginate: 1
 paginate_files:
-    - blog/index.markdown
+    - blog/index.html
 
 description: The personal website and blog of Eren Turkay
 #disqus_developer: 1
