@@ -1,24 +1,21 @@
 ---
-layout: machinae-main
-title: Home
-section: Home
+layout: blog-main
+title: Son Yazılar
 
 feed: atom.xml
 ---
 
-# Thoughts on Elegant Computing
+# Test
+Testing
 
-_Machinae Elegantiam_ is [Russ Harmon](/)'s blog on technology, computing,
-programming, and anything else computer related he cares to post.
+## Son yazılar
 
-## Recent Posts
-
-{% for post in site.categories.machinae limit: 10 %}
+{% for post in site.categories.blog limit: 10 %}
 <div class="section list">
 	<h1>{{ post.date | date_to_string }}</h1>
 	<p class="line">
-		<a class="title" href="{{ post.url }}">{{ post.title }}</a>
-		<a class="comments" href="{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}">View Comments</a>
+		<a class="title" href="{{ site.base_url }}{{ post.url }}">{{ post.title }}</a>
+		<a class="comments" href="{{ site.base_url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}">View Comments</a>
 	</p>
 	<span class="excerpt">{{ post.excerpt | markdownify }}</span>
 </div>

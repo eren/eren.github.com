@@ -1,8 +1,30 @@
 ---
-layout: machinae
+layout: blog
 ---
 
-<div id="page">{{ content }}</div>
+<div id="page">
+	<div id="post-title"><h1>{{ page.title }}</h1></div>
+
+	<div id="post-info">
+		<div id="post-info-date">
+	 		<!-- <span>{{ page.date | date: "%d.%m.%Y" }},</span> -->
+	 		<span>{{ page.date | date_to_string }},</span>
+	 	</div>
+		<div id="post-info-tags">
+	 		<ul>
+	 			{% for tag in page.tags %}
+	 			<li><a href='{{ site.base_url}}/blog/tag/{{ tag }}'>{{ tag }}</a></li>
+	 			{% endfor %}
+	 		</ul>
+	 	</div>
+
+	 </div>
+
+	<div id="post-content">
+		{{ content }}
+	</div>
+
+</div>
 {% unless site.disqus_shortname == null %}
 <!-- Disqus comment engine -->
 <div id="disqus">
