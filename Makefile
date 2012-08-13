@@ -1,4 +1,4 @@
-site:
+site: clean
 	jekyll --no-server
 
 clean:
