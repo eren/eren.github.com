@@ -1,7 +1,9 @@
 ---
 layout: main
 ---
+{{ content }}
 
+{% comment %}
 <!-- Age calculation -->
 <script type="text/javascript" charset="UTF-8" src="/js/numbers.js"></script>
 
@@ -28,6 +30,5 @@ layout: main
 	twitter_latest("{{ site.twitter_username }}", $("#twitter_update_list"));
 </script>
 
-{% comment %}
 vim: ft=liquid sw=4 ts=4 sts=4
 {% endcomment %}

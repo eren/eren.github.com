@@ -1,4 +1,4 @@
-auto: true
+auto: false
 pygments: true
 permalink: /blog/:year/:month/:day/:title
 markdown: maruku
@@ -9,9 +9,8 @@ domain: localhost:4000
 #base_url: http://cs.bilgi.edu.tr/~eturkay/_site
 base_url: http://localhost:4000
 
-paginate: 1
-paginate_files:
-    - blog/index.html
+#paginate: 2
+#paginate_file: blog/index.html
 
 description: The personal website and blog of Eren Turkay
 #disqus_developer: 1
@@ -33,3 +32,8 @@ maruku:
     png_dir: images/latex/
     png_url: /images/latex/
 
+exclude:
+    - Makefile
+    - README.md
+    - links.txt
+    - CNAME

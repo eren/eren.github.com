@@ -36,7 +36,7 @@ img { -ms-interpolation-mode:bicubic; }
 html>body { font-size:16px; }
 p { margin: 0 0 1.5em; text-align: justify; }
 
-a { text-decoration: none; color: maroon; }
+a { text-decoration: none; color: #CA0000; }
 /*a:hover { text-decoration: underline; color: red; }*/
 a:hover { color: red; }
 a.pdf:before { 
