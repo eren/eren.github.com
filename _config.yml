@@ -13,10 +13,9 @@ base_url: http://localhost:4000
 #paginate_file: blog/index.html
 
 description: The personal website and blog of Eren Turkay
-#disqus_developer: 1
+disqus_developer: 1
 #birthdate: August 9, 1988
-#disqus_shortname: erenturkay
-twitter_username: erenturkay
+disqus_shortname: erenturkayblog
 #google_latitude_id: 4048757213362106746
 #google_analytics_id: UA-10349264-2
 #google_plus_id: 112862864127564162879

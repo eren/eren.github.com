@@ -9,7 +9,13 @@ top: Blog
 			<a href="{{ site.base_url }}/blog" title="Eren Türkay'ın Blogu">Blog</a>
 			<span class="byline">← <a href="{{ site.base_url }}/">Eren Türkay</a></span>
 		</span>
-	</h1>
+    </h1>
+	<ul class="nav linkhighlight">
+		<li>
+			<a class="home" href="{{ site.base_url }}/">Anasayfa</a>
+		</li>
+    </ul>
+    {% comment %}
 	<ul class="nav linkhighlight">
 		<li>
 			<a class="home" href="{{ site.base_url }}/blog">Blog</a>
@@ -23,7 +29,8 @@ top: Blog
 		<li>
 			<a rel="me" class="blog" href="{{ site.base_url }}/blog/tags">Tag</a>
 		</li>
-	</ul>
+    </ul>
+    {% endcomment %}
 
 </div>
 {{ content }}

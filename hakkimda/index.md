@@ -3,7 +3,6 @@ layout: main
 title: Hakkımda
 section: Anasayfa
 ---
-
 Çalışmalar
 ==========
 +-- {: .section }
@@ -60,14 +59,14 @@ kapsıyor.
 +-- {: .section }
 # Teori
 Bilgisayar Bilimleri bölümünde aldığım eğitimin yanısıra, modern matematiği
-öğrenmeye çalışıyorum. Matematik eğitiminin üniversitede verilemediğine
-inandığım için [Coursera](http://www.coursera.org/)'daki Matematiksel Düşünmeye
-Giriş gibi dersleri takip ederek bu alandaki açlığımı gidermeye çalışıyorum.
-Bununla birlikte biçimsel diller, hesaplanabilirlik, olasılık gibi konularla
-ilgileniyorum.
+öğrenmeye çalışıyorum. [Coursera](http://www.coursera.org/)'daki Matematiksel
+Düşünmeye Giriş gibi dersleri takip ederek bu alandaki bilgimi ilerletmeye
+çalışıyorum. Coursera ile beraber [KhanAcademy](http://khanacademy.org)
+matematik konusundaki bir diğer yardımcım. Bununla birlikte biçimsel diller,
+hesaplanabilirlik, olasılık gibi konularla ilgileniyorum.
 
 Bir teknolojinin ya da programlama dilinin bir önemi olduğunu düşünmüyorum.
-Programlama dilleri için genel olarak syntactic sugar tabirini kullanıyorum.
+Programlama dilleri için genel olarak *syntactic sugar* tabirini kullanıyorum.
 Yeterli zaman ve imkan verildiğinde herhangi bir programlama dili kısa bir süre
 içerisinde öğrenilebilir. Esas önemli olanın matematiksel düşünme yeteneği ve
 öğrenmeyi öğrenmek olduğunu düşünüyorum.

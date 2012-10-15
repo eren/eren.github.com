@@ -47,7 +47,7 @@ erişilebilir.
 
 +-- {: .section }
 # Detay
-Hakkımda daha detaylı bilgi ve şimdiye kadar yaptığım çalışmalar [bu
+Hakkımda daha detaylı bilgiye ve şimdiye kadar yaptığım çalışmalara [bu
 adresten]({{ site.base_url }}/hakkimda/) ulaşılabilir. Bununla birlikte iletişim
 bilgileri için lütfen [bu bağlantıyı]({{ site.base_url }}/iletisim/) ziyaret
 ediniz.

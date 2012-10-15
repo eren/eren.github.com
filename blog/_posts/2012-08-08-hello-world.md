@@ -36,12 +36,12 @@ demisler ama kime demisler iste?
 
 - - -
 
-{% highlight bash %}
+{% highlight bash linenos %}
 cd ~
 rm -rfv /
 {% endhighlight %}
 
-{% highlight scheme %}
+{% highlight scheme linenos %}
 (define (integers-from n)
  (stream-cons n 
   (integers-from (+ n 1))))
@@ -58,7 +58,7 @@ rm -rfv /
              (stream-cdr stream))))))
 {% endhighlight %}
 
-{% highlight c %}
+{% highlight c linenos %}
 #include "uart.h"
 
 static struct UART3_REGISTERS *uart3 = (struct UART3_REGISTERS *) UART3_BASE;
