@@ -1,29 +1,14 @@
+# !boxes -d shell -p a1 -s 80
+
+################################################################################
+#                                                                              #
+# General configuration for posts, its title link and rendering                #
+#                                                                              #
+################################################################################
 auto: false
 pygments: true
 permalink: /blog/:year/:month/:day/:title
 markdown: maruku
-
-domain: localhost:4000
-
-# url prefix for loading images, css in different domains. No slahs at the end.
-#base_url: http://cs.bilgi.edu.tr/~eturkay/_site
-base_url: http://localhost:4000
-
-#paginate: 2
-#paginate_file: blog/index.html
-
-description: The personal website and blog of Eren Turkay
-disqus_developer: 1
-#birthdate: August 9, 1988
-disqus_shortname: erenturkayblog
-#google_latitude_id: 4048757213362106746
-#google_analytics_id: UA-10349264-2
-#google_plus_id: 112862864127564162879
-sitemap_exclude: /test/
-
-github_username: eren
-github_excludes: eren.github.com
-
 maruku:
     use_divs: true
     use_tex: true
@@ -36,3 +21,25 @@ exclude:
     - README.md
     - links.txt
     - CNAME
+
+################################################################################
+#                                                                              #
+# Website configuration                                                        #
+#                                                                              #
+################################################################################
+domain: localhost:4000
+# url prefix for loading images, css in different domains. No slahs at the end.
+#base_url: http://cs.bilgi.edu.tr/~eturkay/_site
+base_url: http://localhost:4000
+
+#paginate: 2
+#paginate_file: blog/index.html
+
+description: The personal website and blog of Eren Turkay
+disqus_developer: 1
+disqus_shortname: erenturkayblog
+sitemap_exclude: /test/
+
+# number of posts in the main page as "Latest entries"
+num_of_post_in_main: 3
+

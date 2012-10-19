@@ -8,6 +8,19 @@ link:
       href: /
 
 ---
+{% unless site.disqus_shortname == null %}
+<script type="text/javascript">
+	var disqus_shortname = '{{ site.disqus_shortname }}';
+
+	(function () {
+		var s = document.createElement('script'); s.async = true;
+		s.type = 'text/javascript';
+		s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+		(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+	}());
+</script>
+{% endunless %}
+
 <img class='inset right' src='{{ site.base_url }}/images/eren_turkay.png' title='Eren Turkay' alt="Eren Turkay'in fotografi" width='150px' />
 Merhaba
 =======
@@ -32,18 +45,13 @@ anadal yapmaktayım. 2015 yılında her iki bölümden de mezun olmayı umuyorum
 
 +-- {: .section }
 # Kod
-Yazdığım kodların bır kısmı [GitHub](http://github.com/eren/) sayfamda
-bulunabilir. Bununla birlikte GitHub sayfasında bulunmayan kodları detaylı bilgi
-sayfasından edinebilirsiniz.
+Projeler ve açıklamalarına [projeler][projeler] sayfasından ulaşabilir, yazdığım
+kodlara ise [GitHub][my_github] sayfamdan erişebilirsiniz.
 
+[projeler]: {{ site.base_url }}/projeler
+[my_github]: http://github.com/eren
 =--
 
-+-- {: .section }
-# Blog
-Belirli aralıklarda Bilgisayar Bilimleri, haberleşme ve çeşitli alanlarda blog
-girdileri yazıyorum. Bu girdiler [blog]({{ site.base_url }}/blog/) sayfasından
-erişilebilir.
-=--
 
 +-- {: .section }
 # Detay
@@ -52,6 +60,20 @@ adresten]({{ site.base_url }}/hakkimda/) ulaşılabilir. Bununla birlikte ileti�
 bilgileri için lütfen [bu bağlantıyı]({{ site.base_url }}/iletisim/) ziyaret
 ediniz.
 =--
+
+Son Girdiler
+============
+
+{% for post in site.posts limit:{{site.num_of_post_in_main}} %}
+<div class="section list">
+	<h1>{{ post.date | date: "%Y-%d-%m"}}</h1>
+	<p class="line">
+		<a class="title" href="{{ site.base_url }}{{ post.url }}">{{ post.title }}</a>
+		<a class="comments" href="{{ site.base_url }}{{ post.url }}#disqus_thread" data-disqus-identifier="{{ post.id }}">View Comments</a>
+	</p>
+	<span class="excerpt">{{ post.excerpt | markdownify }}</span>
+</div>
+{% endfor %}
 
 {% comment %}
 vim: ft=jekyll sw=4 ts=4 sts=4 tw=80

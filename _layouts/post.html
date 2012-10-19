@@ -7,15 +7,7 @@ layout: blog
 
 	<div id="post-info">
 		<div id="post-info-date">
-	 		<!-- <span>{{ page.date | date: "%d.%m.%Y" }},</span> -->
-	 		<span>{{ page.date | date_to_string }},</span>
-	 	</div>
-		<div id="post-info-tags">
-	 		<ul>
-	 			{% for tag in page.tags %}
-	 			<li><a href='{{ site.base_url}}/blog/tag/{{ tag }}'>{{ tag }}</a></li>
-	 			{% endfor %}
-	 		</ul>
+             <span>{{ page.date | date: "%Y-%d-%m" }}</span>
 	 	</div>
 
 	 </div>
@@ -23,6 +15,17 @@ layout: blog
 	<div id="post-content">
 		{{ content }}
 	</div>
+
+
+    <div id="post-info-tags">
+        <ul>
+            <img src="{{ site.base_url }}/images/tag.png" width="16px"
+            height="16px" />
+            {% for tag in page.tags %}
+            <li><a href='{{ site.base_url}}/blog/tag/{{ tag }}'>{{ tag }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 
 </div>
 {% unless site.disqus_shortname == null %}

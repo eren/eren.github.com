@@ -119,7 +119,7 @@ module Jekyll
         if post.data.has_key?('changefreq')
           changefreq = post.data["changefreq"]
         else
-          changefreq = "never"
+          changefreq = "weekly"
         end
         url = post.url
         url = url[0..-11] if url=~/\/index.html$/
