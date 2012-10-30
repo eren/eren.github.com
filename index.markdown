@@ -2,11 +2,7 @@
 layout: top
 title: Anasayfa
 section: Anasayfa
-changefreq: always
-link:
-    - rel: canonical
-      href: /
-
+changefreq: monthly
 ---
 {% unless site.disqus_shortname == null %}
 <script type="text/javascript">
@@ -61,6 +57,7 @@ bilgileri için lütfen [bu bağlantıyı]({{ site.base_url }}/iletisim/) ziyare
 ediniz.
 =--
 
+{% comment %}
 Son Girdiler
 ============
 
@@ -75,6 +72,4 @@ Son Girdiler
 </div>
 {% endfor %}
 
-{% comment %}
-vim: ft=jekyll sw=4 ts=4 sts=4 tw=80
 {% endcomment %}

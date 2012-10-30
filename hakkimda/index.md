@@ -2,6 +2,8 @@
 layout: main
 title: Hakkımda
 section: Anasayfa
+description: Eren Türkay hakkında geniş bilgi, hakkımda, about, cv, curriculum vitae
+tags: hakkımda, about, cv, curriculum vitae
 ---
 Hakkımda
 ==========
@@ -61,7 +63,25 @@ Hala aktif olarak özgür yazılım kullanıyorum ve geliştiriyorum. Yazdığı
 [Birinciliği](http://www-03.ibm.com/press/tr/tr/pressrelease/37880.wss),
 *__2011__*
 <br />
-Buraya aciklama gelecek
+IBM tarafından düzenlenen mainframe yarışmasında __Yıldız Teknik Üniversitesi__ ve
+__Orta Doğu Teknik Üniversitesi__'ni geride bıraktım.
+
+Daha önce herhangi bir Mainframe deneyimine sahip olmadan, yarışmada gerçek bir
+Mainframe, __z/OS__ sistemi üzerinde __C__, __REXX__, __JCL__ ile yazılmış
+uygulamaların, __CICS__ transaction sunucusunu ile ortak çalışan, __REXX__ ile
+yazılmış web servislerinin hatalarını giderdim ve yeni özellikler ekledim.
+Bunları yaparken __DB2__, __CICS__, __ISPF__, __SDSF__ gibi teknolojileri
+öğrendim. 
+
+2 aylık yarışma süresinde, IBM dökümanları ile fazlasıyla vakit geçirdim. En çok
+CICS ve JCL zaman geçirdiğimi söyleyebilirim.
+
+Yarışma hakkında daha detaylı bilgiye [buradan][mainframe], yarışmada sorulan ve
+yapılması istenen görevleri içeren dosyalara ise [buradan][mainframe_details]
+ulaşabilirsiniz.
+
+[mainframe]: http://www-05.ibm.com/tr/industries/education/mainframe-index.html
+[mainframe_details]: http://www-05.ibm.com/tr/industries/education/mainframe-details.html
 
 **— İstanbul** Bilgi Üniversitesi, %100 ÖSYM Bursu, *__2009__* <br />
 Üniversite sınavında Türkiye genelinde __858.__ sırada yer alarak __%100__ burs
@@ -86,8 +106,6 @@ stdlib][3] (commit rev.[59402][xmlrpc_commit], [diff][xmlrpc_diff])
 
 [xmlrpc_commit]: http://svn.python.org/view/python/trunk/Lib/test/test_xmlrpc.py?revision=59402&view=markup
 [xmlrpc_diff]: http://svn.python.org/view/python/trunk/Lib/test/test_xmlrpc.py?r1=57651&r2=59402
-
-[mainframe]: http://www-05.ibm.com/tr/industries/education/mainframe-index.html
 [ghop]: https://code.google.com/opensource/ghop/2007-8/
 =--
 

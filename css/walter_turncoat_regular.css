@@ -10,5 +10,5 @@ from outside
   font-family: 'Walter Turncoat';
   font-style: normal;
   font-weight: 400;
-  src: local('Walter Turncoat'), local('WalterTurncoat'), url({{ site.base_url }}/css/walterturncoat_v3_regular.woff) format('woff');
+  src: local('Walter Turncoat'), local('WalterTurncoat'), url(http://localhost:4000/css/walterturncoat_v3_regular.woff) format('woff');
 }

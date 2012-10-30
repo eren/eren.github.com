@@ -35,7 +35,6 @@ base_url: http://localhost:4000
 #paginate: 2
 #paginate_file: blog/index.html
 
-description: The personal website and blog of Eren Turkay
 disqus_developer: 1
 disqus_shortname: erenturkayblog
 sitemap_exclude: /test/
@@ -43,3 +42,10 @@ sitemap_exclude: /test/
 # number of posts in the main page as "Latest entries"
 num_of_post_in_main: 3
 
+description: Eren Türkay Web Sayfası, Eren Turkay, blog, qwzxcv, pardus, linux, ta1aet,
+             hamradio, amatör telsiz, ağ 
+meta:
+    - name: keywords 
+      content: Eren Türkay, Eren Turkay, kimdir, blog, qwxzcv,
+               qwzxcv.wordpress.com, linux, pardus, özgürlükiçin,
+               amatör telsiz, hamradio

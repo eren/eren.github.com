@@ -10,6 +10,8 @@
 	<link rel="alternate" href="{{ page.feed }}" title="Atom Feed" type="application/atom+xml"/>
 	{% endif %}
 
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="{{ site.base_url }}/sitemap.xml" />
+
 	<link rel="stylesheet" href="{{ site.base_url }}/css/reset.css" type="text/css"/>
 	<link rel="stylesheet" href="{{ site.base_url }}/css/screen.css" type="text/css"/>
 	<link rel="stylesheet" href="{{ site.base_url }}/css/960.css" type="text/css"/>
@@ -33,8 +35,8 @@
 	<meta name="{{ meta.name }}" content="{{ meta.content }}"/>
 	{% endfor %}
 
-	{% if page.categories and page.categories != empty %}
-	<meta name="keywords" content="{{ page.categories | join:',' }}"/>
+	{% if page.tags and page.tags != empty %}
+	<meta name="keywords" content="{{ page.tags | join:',' }}"/>
 	{% endif %}
 
 	<meta name="description" content="{% if page.excerpt %}{{ page.excerpt }}{% else %}{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}{% endif %}"/>
