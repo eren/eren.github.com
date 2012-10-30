@@ -9,7 +9,7 @@ Site Hakkında
 Bu web sayfası statik olarak oluşturulmuş olup [Jekyll](http://jekyllrb.com/)
 kullanılarak [Github](http://github.com/) tarafından sunulmaktadır. Sitenin
 tamamı [vim](http://www.vim.org/) ile yazılmakla birlikte çoğu yerde markdown formatı
-kullanılmaktadır. Daha detaylı bilgi için Jekyll dökümanına bakınız.
+kullanılmaktadır. Daha detaylı bilgi için Jekyll dokümanına bakınız.
 
 Tasarım
 =======

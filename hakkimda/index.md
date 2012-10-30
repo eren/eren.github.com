@@ -73,7 +73,7 @@ yazılmış web servislerinin hatalarını giderdim ve yeni özellikler ekledim.
 Bunları yaparken __DB2__, __CICS__, __ISPF__, __SDSF__ gibi teknolojileri
 öğrendim. 
 
-2 aylık yarışma süresinde, IBM dökümanları ile fazlasıyla vakit geçirdim. En çok
+2 aylık yarışma süresinde, IBM dokümanları ile fazlasıyla vakit geçirdim. En çok
 CICS ve JCL zaman geçirdiğimi söyleyebilirim.
 
 Yarışma hakkında daha detaylı bilgiye [buradan][mainframe], yarışmada sorulan ve
