@@ -39,6 +39,8 @@ disqus_developer: 1
 disqus_shortname: erenturkayblog
 sitemap_exclude: /test/
 
+google_analytics_id: UA-35983607-1
+
 # number of posts in the main page as "Latest entries"
 num_of_post_in_main: 3
 
