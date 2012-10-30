@@ -30,7 +30,7 @@ exclude:
 domain: localhost:4000
 # url prefix for loading images, css in different domains. No slahs at the end.
 #base_url: http://cs.bilgi.edu.tr/~eturkay/_site
-base_url: http://localhost:4000
+base_url: http://erenturkay.com
 
 #paginate: 2
 #paginate_file: blog/index.html
