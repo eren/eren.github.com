@@ -46,8 +46,18 @@ google_analytics_id: UA-35983607-1
 # number of posts in the main page as "Latest entries"
 num_of_post_in_main: 3
 
-description: Eren Türkay Web Sayfası, Eren Turkay, blog, qwzxcv, pardus, linux, ta1aet,
-             hamradio, amatör telsiz, ağ 
+description: Eren Türkay'ın kişisel web sayfası.
+
+             Uzun zamandır aktif olarak özgür yazılım geliştiriyorum ve
+             kullanıyorum. Eski bir Pardus geliştiricisiyim. Amatör Telsizciyim
+             _(DE TA1AET)_. Gömülü sistemler, linux, bilgi güvenliği, ağ,
+             kablosuz iletişim, programlama dilleri, işletim sistemleri, afet ve
+             acil durum haberleşmesi gibi konular ile ilgileniyorum.
+
+            Teknik konular dışında salsa bachata ve merengue gibi latin dansları
+            ile ilgileniyorum. Zaman buldukça tüplü dalış yapıyorum, 1 yıldız
+            CMAS lisansına sahibim.
+
 meta:
     - name: keywords 
       content: Eren Türkay, Eren Turkay, kimdir, blog, qwxzcv,
