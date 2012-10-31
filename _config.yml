@@ -27,9 +27,11 @@ exclude:
 # Website configuration                                                        #
 #                                                                              #
 ################################################################################
-domain: localhost:4000
+# FIXME: why are we keeping domain and base_url at the same time? Remove domain
+# and its dependency in atom feed, sitemap generation plugin
+domain: erenturkay.com
+
 # url prefix for loading images, css in different domains. No slahs at the end.
-#base_url: http://cs.bilgi.edu.tr/~eturkay/_site
 base_url: http://erenturkay.com
 
 #paginate: 2
