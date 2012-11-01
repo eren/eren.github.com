@@ -4,6 +4,7 @@ title: Anasayfa
 section: Anasayfa
 changefreq: monthly
 ---
+{% comment %}
 {% unless site.disqus_shortname == null %}
 <script type="text/javascript">
 	var disqus_shortname = '{{ site.disqus_shortname }}';
@@ -16,6 +17,7 @@ changefreq: monthly
 	}());
 </script>
 {% endunless %}
+{% endcomment %}
 
 <img class='inset right' src='{{ site.base_url }}/images/eren_turkay.png' title='Eren Turkay' alt="Eren Turkay'in fotografi" width='150px' />
 Merhaba
