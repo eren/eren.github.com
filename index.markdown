@@ -22,41 +22,43 @@ changefreq: monthly
 <img class='inset right' src='{{ site.base_url }}/images/eren_turkay.png' title='Eren Turkay' alt="Eren Turkay'in fotografi" width='150px' />
 Merhaba
 =======
-Uzun zamandır aktif olarak özgür yazılım geliştiriyorum ve kullanıyorum. Eski
+6 yıldır aktif olarak özgür yazılım geliştiriyorum ve kullanıyorum. Eski
 bir Pardus geliştiricisiyim. Amatör Telsizciyim _(DE TA1AET)_. Gömülü sistemler,
 linux, bilgi güvenliği, ağ, kablosuz iletişim, programlama dilleri, işletim
 sistemleri, afet ve acil durum haberleşmesi gibi konular ile ilgileniyorum.
 
-Teknik konular dışında [salsa](http://en.wikipedia.org/wiki/Salsa_%28dance%29),
-[bachata](http://en.wikipedia.org/wiki/Bachata_%28dance%29) ve
-[merengue](http://en.wikipedia.org/wiki/Merengue_%28dance%29) gibi latin
-dansları ile ilgileniyorum. Zaman buldukça tüplü dalış yapıyorum, 1 yıldız CMAS
-lisansına sahibim.
-
 +-- {: .section }
 # Akademi
 [İstanbul Bilgi Üniversitesi](http://www.bilgi.edu.tr/)'nde [Bilgisayar
-Bilimleri](http://cs.bilgi.edu.tri/) ve İngilizce Öğretmenliği bölümlerinde çift
-anadal yapmaktayım. 2015 yılında her iki bölümden de mezun olmayı umuyorum.
-
+Bilimleri](http://cs.bilgi.edu.tri/) *(10')* ve İngilizce Öğretmenliği *(09')*
+bölümlerinde çift anadal yapmaktayım.
 =--
 
 +-- {: .section }
 # Kod
-Projeler ve açıklamalarına [projeler][projeler] sayfasından ulaşabilir, yazdığım
-kodlara ise [GitHub][my_github] sayfamdan erişebilirsiniz.
+C, Python, Java, LISP dillerini sık olarak kullanıyorum. Web için Django tercih
+ediyorum, gerekli olursa PHP de yazıyorum. Projeler ve açıklamalarına
+[projeler][projeler] sayfasından ulaşabilir, yazdığım kodlara ise
+[GitHub][my_github] sayfamdan erişebilirsiniz.
 
 [projeler]: {{ site.base_url }}/projeler
 [my_github]: http://github.com/eren
 =--
 
++-- {: .section }
+# Hobi
+Teknik konular dışında [salsa](http://en.wikipedia.org/wiki/Salsa_%28dance%29),
+[bachata](http://en.wikipedia.org/wiki/Bachata_%28dance%29) ve
+[merengue](http://en.wikipedia.org/wiki/Merengue_%28dance%29) gibi latin
+dansları ile ilgileniyorum. Zaman buldukça tüplü dalış yapıyorum, 1 yıldız CMAS
+lisansına sahibim.
+=--
 
 +-- {: .section }
 # Detay
 Hakkımda daha detaylı bilgiye ve şimdiye kadar yaptığım çalışmalara [bu
-adresten]({{ site.base_url }}/hakkimda/) ulaşılabilir. Bununla birlikte iletişim
-bilgileri için lütfen [bu bağlantıyı]({{ site.base_url }}/iletisim/) ziyaret
-ediniz.
+adresten]({{ site.base_url }}/hakkimda/) ulaşılabilir, iletişim için [bu
+bağlantıyı]({{ site.base_url }}/iletisim/) kullanabilirsiniz.
 =--
 
 {% comment %}
