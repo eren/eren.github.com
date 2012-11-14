@@ -57,6 +57,12 @@ h2 {
 	margin:1.5em 0 1.5em 0;
 	font-weight:bold;
 }
+h3 {
+	font-size: 95%;
+	line-height: 1.2em;
+	margin:1.5em 0 1.5em 0;
+	font-weight:bold;
+}
 
 hr { 
 	border-top: 1px solid silver;
@@ -581,3 +587,7 @@ img.maruku-png { }
     margin-top: 3em;
 }
 
+
+div.maruku_toc ul {
+    margin-top: 0;
+}
