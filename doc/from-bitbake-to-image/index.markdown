@@ -9,6 +9,8 @@ section: Anasayfa
 
 From Bitbake Hello World to an Image
 ====================================
+**Eren Türkay (eren ..at.. hambedded.org)**, *17-11-2012*
+
 [OpenEmbedded][openembedded] and [Yocto][yoctoproject] are based on
 [bitbake][bitbake] build system. In order to understand the structure of OE, it
 is beneficial to have an understanding of bitbake to some degree along with the
@@ -25,9 +27,9 @@ defined in bitbake metadata (.bbclass, .bb), resolve their task dependencies,
 put them in right order and run them. You can think of a task as a function that
 can be set to run before or after another function (or task). A task can also
 have additional flag(s) assigned besides the dependency information. Flags are
-basically variables assigned to functions (tasks) that tell additional info
-about them. Tasks and some of their flags interpreted by bitbake will be
-explained shortly. Don't be confused and be patient.
+basically variables assigned to variables or functions (tasks) that tell additional info
+about them. All of these will be explained throughout this document. [Don't
+panic!][hhgttg-dont-panic]
 
 {% comment %}
 Explain the following questions in tasks section
@@ -87,17 +89,17 @@ OpenEmbedded code and see the ideas implemented.
 *NOTE: This part is written with the help of the information in
 [emails][bitbake-helloworld-email] sent to yocto project mailing list.*
 
-
-When bitbake is run to build a recipe, *base.bbclass* file gets inherited by any
-recipe by default.  This is an ideal place for us to define our package building
-logic. If you are familiar with building programs for UNIX-like operating
-systems, you know that building a package includes fetching the source,
-unpacking, patching, configuring, compiling (making), and installing.
-
 Bitbake, when unpacked, includes a simple base.bbclass. You can find it in
 *classes/base.bbclass*. It includes a few functions for printing infos and
-warning, and defines 3 tasks: showdata, listtasks, build.  We will now edit the
-example base.bbclass to implement our the package building logic.
+warning, and defines 3 tasks: showdata, listtasks, build. 
+
+When bitbake is run to build a recipe, this *base.bbclass* file gets inherited
+by any recipe by default.  This is an ideal place for us to define our package
+building logic. If you are familiar with building programs for UNIX-like
+operating systems, you know that building a package includes fetching the
+source, unpacking, patching, configuring, compiling (making), and installing.
+Let's now add a useful base for our package building logic through defining tasks.
+
 
 ### Defining The Tasks ###
 Defining a task is achieved through *addtask* keyword followed by the name of
@@ -175,7 +177,7 @@ instead of actually doing useful stuff for building a package. In that way, it's
 easier to read the program logic from logs.
 
 Having logging code and building logic in one file is not modular. Wouldn't it
-be good to seperate logging code from base? Let's create *logging.bbclass* in
+be good to separate logging code from base? Let's create *logging.bbclass* in
 *classes/* directory. Logging.bbclass looks like this: 
 
 {% highlight bash %}
@@ -203,15 +205,23 @@ bbfatal() {
 
 {% endhighlight %}
 
-We will put *inherit logging* at the top of base.bbclass. When base.bbclass is
+We will just put *inherit logging* at the top of base.bbclass. When base.bbclass is
 parsed, logging.bbclass is now automatically inherited. Inheritence is one of
 the many ways of modularity in bitbake.
 
 ### Adding an Example Layer ###
 Having the program building logic and logging written, we need to add a layer to
 start experimenting with building. First, create a directory named *meta-test*,
-which will be our layer directory.  We, then, need to inform bitbake that we
-have a layer. We will create *conf/bblayers.conf* with following content:
+which will be our layer directory.  
+
+{% highlight bash linenos %}
+
+mkdir meta-test
+
+{% endhighlight %}
+
+We, then, need to inform bitbake that we have a layer. We will create
+*conf/bblayers.conf* with following content:
 
 {% highlight bash %}
 
@@ -241,7 +251,7 @@ def init(data):
 
 As you see. TOPDIR is defined to be the directory in which we run bitbake. The
 use of BBPATH and BBLAYERS is explained in [user
-manual][bitbake-manual-parsing].
+manual][bitbake-manual-parsing]:
 
     Bitbake will first search the current working directory for an optional
     "conf/bblayers.conf" configuration file. This file is expected to contain a
@@ -251,9 +261,127 @@ manual][bitbake-manual-parsing].
     found. The idea is these files will setup BBPATH and other variables correctly
     for a given build directory automatically for the user.
 
+    Bitbake will then expect to find 'conf/bitbake.conf' somewhere in the user
+    specified BBPATH. That configuration file generally has include directives
+    to pull in any other metadata (generally files specific to architecture,
+    machine, local and so on.
+
+Additionally, *BBPATH* is analogous to PATH variable. Configuration files can be
+included in bitbake.conf or other \*.conf files. When relative path is given,
+the file is searched in the directories set in BBPATH, and the first hit will be
+included.
+
+Continuing with our layer, let's add our layer configuration. Create *conf/*
+directory first:
+
+{% highlight bash linenos %}
+
+mkdir meta-test/conf
+
+{% endhighlight %}
+
+And add *conf/layer.conf* with the following contents:
+
+{% highlight bash %}
+
+BBPATH .= ":${LAYERDIR}"
+
+BBFILES += "${LAYERDIR}/recipes-*/*/*.bb \
+            ${LAYERDIR}/recipes-*/*/*.bbappend"
+
+BBFILE_COLLECTIONS += "test"
+BBFILE_PATTERN_test := "^${LAYERDIR}/"
+BBFILE_PRIORITY_test = "5"
+
+{% endhighlight %}
+
+We append our layer directory to *BBPATH* so that our layer directory is also
+searched when bitbake looks for a configuration file which is relatively
+included.
+
+*BBFILES* variable is appended with our recipes. We tell bitbake that we have
+recipes in our layer directory. All the recipes we create in
+recipes-XXX/YYY/ directories within our LAYERDIR will get appended to BBFILES.
+
+*FIXME: Add explanations for COLLECTIONS, PATTERNS, and PRIORITY*
+
+Lets create our example recipe within the directory structure we have just
+defined above.  This recipe is named *firstrecipe*.
+
+{% highlight bash linenos %}
+
+mkdir -p meta-test/recipes-example/firstrecipe
+vim meta-test/recipes-example/firstrecipe/firstrecipe_0.0.bb
+
+{% endhighlight %}
+
+Using your favorite editor, create firstrecipe_0.0.bb. The version of a recipe
+is contained with its filename seperated by \_. Since we do not have version for
+our recipe, we make it 0.0. Our recipe will only contain a description.
+
+{% highlight bash %}
+
+DESCRIPTION = "Our first recipe for bitbake hello world"
+
+{% endhighlight %}
+
+Finally, our conf, classes and meta-test directories are organized as below:
+
+{% highlight bash %}
+.
+|-- classes
+|   |-- base.bbclass
+|   `-- logging.bbclass
+|-- conf
+|   |-- bblayers.conf
+|   `-- bitbake.conf
+|-- meta-test
+|   |-- conf
+|   |   `-- layer.conf
+|   `-- recipes-example
+|       `-- firstrecipe
+|           `-- firstrecipe_0.0.bb
+\-- 
+
+{% endhighlight %}
+
+
+We are now ready to test our logic in base. Cd into the bitbake directory and
+run bitbake with debug on.
+
+{% highlight bash %}
+
+./bin/bitbake firstrecipe -vDD
+
+{% endhighlight %}
+
+Congratulations! Your package building logic is in action! You can check the
+additional log information in *tmp/work/firstrecipe-0.0-r0/temp/*. Bitbake
+includes the logs of all tasks in temp/ directory. Additionally, please look at
+*log.task_order* file, which includes our task order defined in base.
+
+It is now up to you to add required code for tasks defined in base to get a
+functional build system (actual fetcher, patcher, extractor code etc). Don't
+invent the wheel again, OpenEmbedded already built one :)
+
+### Overriding Tasks ###
+Defining the package building logic is not enough to create a useful build
+system. There are different ways of configuration, making, and installing
+provided by such tools as autotools, cmake, scons, etc. Although the routines
+for getting the source, unpacking, and patching it can be applied to all
+recipes, we need to override *do_configure, do_make, do_install* tasks for
+different recpies.
+
+In this part, we will override the tasks defined above as an example. (autotools
+...)
+
+Understanding OpenEmbedded
+==========================
+OpenEmbedded..
 
 [openembedded]: http://localhost/
 [yoctoproject]: http://localhost/
+[hhgttg-dont-panic]: https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Don.27t_Panic
 [bitbake]: http://localhost/
 [bitbake-doc]: http://localhost/
 [bitbake-metadata]: http://docs.openembedded.org/bitbake/html/ch02.html
