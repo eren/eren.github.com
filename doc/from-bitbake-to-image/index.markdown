@@ -87,12 +87,169 @@ OpenEmbedded code and see the ideas implemented.
 *NOTE: This part is written with the help of the information in
 [emails][bitbake-helloworld-email] sent to yocto project mailing list.*
 
-{% comment %}
-- after explaining hello world bitbake and before delving into OE code, give the
-  build diagram in getting started. Say it's not enough to understand the code,
-  and start explaining.
 
-{% endcomment %}
+When bitbake is run to build a recipe, *base.bbclass* file gets inherited by any
+recipe by default.  This is an ideal place for us to define our package building
+logic. If you are familiar with building programs for UNIX-like operating
+systems, you know that building a package includes fetching the source,
+unpacking, patching, configuring, compiling (making), and installing.
+
+Bitbake, when unpacked, includes a simple base.bbclass. You can find it in
+*classes/base.bbclass*. It includes a few functions for printing infos and
+warning, and defines 3 tasks: showdata, listtasks, build.  We will now edit the
+example base.bbclass to implement our the package building logic.
+
+### Defining The Tasks ###
+Defining a task is achieved through *addtask* keyword followed by the name of
+the task as well as its dependency relation (before/after keywords). As you see
+in the example bbclass, the name of the task and the actual definition of the
+task is different. The code defining the task is prepended with *do_*. Tasks can
+be defined as python executables or shell. Lets define our package building
+logic. Edit *base.bbclass* and copy&paste the contents below:
+
+{% highlight bash %}
+
+bbplain() {
+	echo "$*"
+}
+
+bbnote() {
+	echo "NOTE: $*"
+}
+
+bbwarn() {
+	echo "WARNING: $*"
+}
+
+bberror() {
+	echo "ERROR: $*"
+}
+
+bbfatal() {
+	echo "ERROR: $*"
+	exit 1
+}
+
+addtask fetch
+python base_do_fetch() {
+    bb.note("BASE_DO_FETCH")
+}
+
+addtask unpack after do_fetch
+python base_do_unpack() {
+    bb.note("BASE_DO_UNPACK")
+}
+
+addtask patch after do_unpack
+base_do_patch() {
+    bbnote "BASE_DO_PATCH"
+}
+
+addtask configure after do_patch
+base_do_configure() {
+    bbnote "BASE_DO_CONFIGURE"
+}
+
+addtask make after do_configure
+base_do_make() {
+    bbnote "BASE_DO_MAKE"
+}
+
+addtask install after do_make
+base_do_install() {
+    bbnote "BASE_DO_INSTALL"
+}
+
+addtask build after do_install
+base_do_build() {
+    bbnote "DO_BUILD"
+}
+
+EXPORT_FUNCTIONS do_fetch do_unpack do_patch do_configure do_make do_install do_build
+
+{% endhighlight %}
+
+As you see, I've defined the first functions as python, and the others as
+shells to be an example. I also printed only the function names
+instead of actually doing useful stuff for building a package. In that way, it's
+easier to read the program logic from logs.
+
+Having logging code and building logic in one file is not modular. Wouldn't it
+be good to seperate logging code from base? Let's create *logging.bbclass* in
+*classes/* directory. Logging.bbclass looks like this: 
+
+{% highlight bash %}
+
+bbplain() {
+	echo "$*"
+}
+
+bbnote() {
+	echo "NOTE: $*"
+}
+
+bbwarn() {
+	echo "WARNING: $*"
+}
+
+bberror() {
+	echo "ERROR: $*"
+}
+
+bbfatal() {
+	echo "ERROR: $*"
+	exit 1
+}
+
+{% endhighlight %}
+
+We will put *inherit logging* at the top of base.bbclass. When base.bbclass is
+parsed, logging.bbclass is now automatically inherited. Inheritence is one of
+the many ways of modularity in bitbake.
+
+### Adding an Example Layer ###
+Having the program building logic and logging written, we need to add a layer to
+start experimenting with building. First, create a directory named *meta-test*,
+which will be our layer directory.  We, then, need to inform bitbake that we
+have a layer. We will create *conf/bblayers.conf* with following content:
+
+{% highlight bash %}
+
+BBPATH := "${TOPDIR}"
+BBFILES ?= ""
+BBLAYERS = " \
+  ${TOPDIR}/meta-test \
+    "
+
+{% endhighlight %}
+
+${TOPDIR} is not defined anywhere in our \*.conf files. This variable, when
+undefined, will be defined by bitbake itself in
+*lib/bb/parse/parse_py/ConfHandler.py:36*. 
+{% highlight python %}
+
+(...)
+
+def init(data):
+    topdir = data.getVar('TOPDIR')
+    if not topdir:
+        data.setVar('TOPDIR', os.getcwd())
+
+(...)
+
+{% endhighlight %}
+
+As you see. TOPDIR is defined to be the directory in which we run bitbake. The
+use of BBPATH and BBLAYERS is explained in [user
+manual][bitbake-manual-parsing].
+
+    Bitbake will first search the current working directory for an optional
+    "conf/bblayers.conf" configuration file. This file is expected to contain a
+    BBLAYERS variable which is a space delimited list of 'layer' directories. For
+    each directory in this list a "conf/layer.conf" file will be searched for and
+    parsed with the LAYERDIR variable being set to the directory where the layer was
+    found. The idea is these files will setup BBPATH and other variables correctly
+    for a given build directory automatically for the user.
 
 
 [openembedded]: http://localhost/
@@ -101,4 +258,12 @@ OpenEmbedded code and see the ideas implemented.
 [bitbake-doc]: http://localhost/
 [bitbake-metadata]: http://docs.openembedded.org/bitbake/html/ch02.html
 [bitbake-user-manual]: http://docs.openembedded.org/bitbake/html/
+[bitbake-manual-parsing]: http://docs.openembedded.org/bitbake/html/ch02s03.html
 [bitbake-helloworld-email]: http://www.mail-archive.com/yocto@yoctoproject.org/msg09379.html
+
+{% comment %}
+- after explaining hello world bitbake and before delving into OE code, give the
+  build diagram in getting started. Say it's not enough to understand the code,
+  and start explaining.
+
+{% endcomment %}
