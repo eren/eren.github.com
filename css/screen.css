@@ -587,7 +587,12 @@ img.maruku-png { }
     margin-top: 3em;
 }
 
-
-div.maruku_toc ul {
-    margin-top: 0;
+div.maruku_toc {
+    margin-bottom: 2em;
 }
+
+div.maruku_toc ul,li {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
