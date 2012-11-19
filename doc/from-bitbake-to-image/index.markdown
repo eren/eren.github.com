@@ -209,6 +209,20 @@ We will just put *inherit logging* at the top of base.bbclass. When base.bbclass
 parsed, logging.bbclass is now automatically inherited. Inheritence is one of
 the many ways of modularity in bitbake.
 
+{% highlight bash %}
+
+inherit logging
+
+addtask fetch
+python base_do_fetch() {
+    bb.note("BASE_DO_FETCH")
+}
+
+...
+
+{% endhighlight %}
+
+
 ### Adding an Example Layer ###
 Having the program building logic and logging written, we need to add a layer to
 start experimenting with building. First, create a directory named *meta-test*,
@@ -303,7 +317,7 @@ included.
 recipes in our layer directory. All the recipes we create in
 recipes-XXX/YYY/ directories within our LAYERDIR will get appended to BBFILES.
 
-*FIXME: Add explanations for COLLECTIONS, PATTERNS, and PRIORITY*
+**FIXME:** Add explanations for COLLECTIONS, PATTERNS, and PRIORITY
 
 Lets create our example recipe within the directory structure we have just
 defined above.  This recipe is named *firstrecipe*.
@@ -356,9 +370,11 @@ run bitbake with debug on.
 {% endhighlight %}
 
 Congratulations! Your package building logic is in action! You can check the
-additional log information in *tmp/work/firstrecipe-0.0-r0/temp/*. Bitbake
-includes the logs of all tasks in temp/ directory. Additionally, please look at
-*log.task_order* file, which includes our task order defined in base.
+additional log information in *tmp/work/firstrecipe-0.0-r0/temp/*. Morover, the
+code run in each task is written to *temp* directory with name "run_TASK.PID".
+Check these files to see what is run in each task. Bitbake includes the logs of
+all tasks in temp/ directory. Additionally, please look at *log.task_order*
+file, which includes our task order defined in base.
 
 It is now up to you to add required code for tasks defined in base to get a
 functional build system (actual fetcher, patcher, extractor code etc). Don't
@@ -372,8 +388,137 @@ for getting the source, unpacking, and patching it can be applied to all
 recipes, we need to override *do_configure, do_make, do_install* tasks for
 different recpies.
 
-In this part, we will override the tasks defined above as an example. (autotools
-...)
+Assume that our firstrecipe uses autotools which means that it has *configure*
+script, we can build it using *make*, and install it with *make install*.
+Instead of providing an actual code, we will again just print a line in
+autotools package. Now, create *autotools.bbclass* in *classes/* directory with
+the following contents:
+
+{% highlight bash %}
+autotools_do_configure() {
+    bbnote "AUTOTOOLS_CONFIGURE"
+}
+
+autotools_do_make() {
+    bbnote "AUTOTOOLS_MAKE"
+}
+
+autotools_do_install() {
+    bbnote "AUTOTOOLS_INSTALL"
+}
+
+EXPORT_FUNCTIONS do_configure do_make do_install
+
+{% endhighlight %}
+
+Inherit the autotools package in our firstrecipe.
+
+{% highlight bash %}
+
+DESCRIPTION = "Our first recipe for bitbake hello world"
+
+inherit autotools
+
+{% endhighlight %}
+
+We are now ready to build our firstrecipe using different
+do_{configure,make,install} tasks.
+
+{% highlight bash %}
+
+./bin/bitbake firstrecipe -vDD
+
+{% endhighlight %}
+
+Now, please go to *temp* directory and see which code is run in configure, make,
+and install tasks. Without *inherit* keyword in our recipe, bitbake runs the
+following code on do_configure task:
+
+{% highlight bash %}
+#!/bin/sh -e
+export HOME="/Users/eren"
+export SHELL="/bin/zsh"
+export LOGNAME="eren"
+export USER="eren"
+export TERM="screen-256color"
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/eren/.zsh_scripts:/sbin:/usr/sbin:/Users/eren/.zsh_scripts"
+do_configure() {
+    base_do_configure
+
+}
+
+base_do_configure() {
+    bbnote "BASE_DO_CONFIGURE"
+
+}
+
+bbnote() {
+	echo "NOTE: $*"
+
+}
+
+set -x
+cd /Users/eren/sourcebox/bitbake-doc/tmp/work/firstrecipe-0.0-r0/firstrecipe-0.0
+do_configure
+
+{% endhighlight %}
+
+
+However, when autotools is inherited, the following code is run:
+
+{% highlight bash %}
+
+#!/bin/sh -e
+export HOME="/Users/eren"
+export SHELL="/bin/zsh"
+export LOGNAME="eren"
+export USER="eren"
+export TERM="screen-256color"
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/Users/eren/.zsh_scripts:/sbin:/usr/sbin:/Users/eren/.zsh_scripts"
+do_configure() {
+    autotools_do_configure
+
+}
+
+autotools_do_configure() {
+    bbnote "AUTOTOOLS_CONFIGURE"
+
+}
+
+bbnote() {
+	echo "NOTE: $*"
+
+}
+
+set -x
+cd /Users/eren/sourcebox/bitbake-doc/tmp/work/firstrecipe-0.0-r0/firstrecipe-0.0
+do_configure
+
+{% endhighlight %}
+
+Can you spot the difference? When autotools is inherited, do_configure() calls
+autotools_do_configure(). This is achieved by EXPORT_FUNCTIONS keyword.
+EXPORT_FUNCTIONS maps each task in its argument to the functions in the bbclass
+prefixed with the name of that bbclass.  So, when EXPORT_FUNCTIONS is used in
+autotools.bbclass, do_configure is mapped to autotools_do_configure. We did the
+same in *base.bbclass* file. We used EXPORT_FUNCTIONS, it mapped each task to
+base_do_TASKNAME. This type of abstraction has an advantage that when we
+override a task, we do not lose the original task. For example, in
+autotools_do_configure, we can still call base_do_configure.
+
+**FIXME:** I need clarification on how export_functions works and how these
+tasks gets mapped.
+
+**FIXME:** task flags have not been mentioned, dirs, cleandirs etc. Mention how
+bitbake interprets it, what's the need, etc
+
+Summary
+-------
+We have covered all the necessary information about bitbake. We know how tasks
+are defined, how layers can be added, how bitbake parses configuration and
+metadata files, how tasks can be overwritten. With these information, we are now
+ready to delve into openembedded code.
+
 
 Understanding OpenEmbedded
 ==========================
