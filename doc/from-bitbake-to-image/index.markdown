@@ -522,7 +522,114 @@ ready to delve into openembedded code.
 
 Understanding OpenEmbedded
 ==========================
-OpenEmbedded..
+OpenEmbedded provides a complete build system and a number of recipes. It has a
+lot of code for fetching the source, patching, building, installing, producing
+ipk, deb, rpm packages, and making an image etc. OpenEmbedded also provides
+other features such as caching but it's out of the scope of this document.
+
+**FIXME**: Mention the distinction/common things with yocto and openembedded
+
+Getting The Source
+------------------
+
+Configuration
+-------------
+As we have seen, bitbake.conf is parsed when bitbake is run. This file is among
+the important files in OE. The file is in *meta/conf/* directory and it includes a
+number of configuration variables that are used in metadatas and bb recipes.
+Bitbake.conf is not standalone and it includes other configuration files within
+*conf* directory. Please navigate to the line no FIXME in bitbake.conf and see
+that there are other configuration files appended into bitbake.conf for
+modularity.
+
+Please do not miss the lines that make use of variables. This is what allows you
+to build an image for different architectures by only changing a few variables.
+
+{% highlight bash %}
+
+include conf/build/${BUILD_SYS}.conf
+include conf/target/${TARGET_SYS}.conf
+include conf/machine/${MACHINE}.conf
+include conf/machine-sdk/${SDKMACHINE}.conf
+include conf/distro/${DISTRO}.conf
+
+{% endhighlight %}
+
+Note that these inclusions are done with relative path to the configuration files.
+These configuration files will be searched in the directories defined in BBPATH
+variable. It means that when bitbake is run, these configuration files will be
+searched in all layers you defined, and the first hit will be used. Remember that
+the path of all the layers are appended to BBBPATH variable.
+
+Tasks
+-----
+In order to understand OE architecture, it's important to know which tasks are
+defined where. We have seen that base.bbclass is an ideal place to define our
+logic and put common code. All bbclass files are in *meta/classes/* directory.
+Open base.bbclass file and search for "addtask" keyword. In base.bbclass, the
+following tasks are defined:
+
+{% highlight bash %}
+
+...
+addtask fetch
+
+...
+addtask unpack after do_fetch
+
+...
+addtask configure after do_patch
+
+...
+addtask compile after do_configure
+
+...
+addtask install after do_compile
+
+...
+addtask build after do_populate_sysroot
+
+...
+addtask cleansstate after do_clean
+
+...
+addtask cleanall after do_cleansstate
+
+{% endhighlight %}
+
+However, these are not the only tasks defined. Take attention to the "inherit"
+keywords on the top. There are tasks defined in {patch,staging}.bbclass files.
+Let's see which tasks are defined.
+
+{% highlight bash %}
+
+// patch.bbclass
+addtask patch after do_unpack
+
+// staging.bbclass
+addtask populate_sysroot after do_install
+addtask do_populate_sysroot_setscene
+
+{% endhighlight %}
+
+These tasks are also not enough. In bitbake.conf,
+*conf/distro/defaultsetup.conf* is included. It defines the following packages
+that should be inherited automatically: *package_ipk*, *insane*, *debian
+devshell sstate license*, among which some of them define tasks. Here is a code
+portion that defines inheritence:
+
+{% highlight bash %}
+
+USER_CLASSES ?= ""
+PACKAGE_CLASSES ?= "package_ipk"
+INHERIT_INSANE ?= "insane"
+INHERIT_DISTRO ?= "debian devshell sstate license"
+INHERIT += "${PACKAGE_CLASSES} ${USER_CLASSES} ${INHERIT_INSANE} ${INHERIT_DISTRO}"
+
+{% endhighlight %}
+
+
+
 
 [openembedded]: http://localhost/
 [yoctoproject]: http://localhost/
