@@ -1,0 +1,147 @@
+{
+  "basics": {
+    "name": "İ. Eren TÜRKAY",
+    "label": "Developer",
+    "picture": "",
+    "email": "turkay.eren@gmail.com",
+    "phone": "",
+    "website": "http://www.erenturkay.com",
+    "summary": "Richard hails from Tulsa. He has earned degrees from the University of Oklahoma and Stanford. (Go Sooners and Cardinals!) Before starting Pied Piper, he worked for Hooli as a part time software developer. While his work focuses on applied information theory, mostly optimizing lossless compression schema of both the length-limited and adaptive variants, his non-work interests range widely, everything from quantum computing to chaos theory. He could tell you about it, but THAT would NOT be a “length-limited” conversation!",
+    "location": {
+      "city": "İstanbul",
+      "countryCode": "TR"
+    },
+    "profiles": [
+      {
+        "network": "twitter",
+        "username": "erenturkay",
+        "url": "http://twitter.com/erenturkay"
+      },
+      {
+        "network": "github",
+        "username": "eren",
+        "url": "https://github.com/eren"
+      }
+    ]
+  },
+  "work": [
+    {
+      "company": "The National Research Institute of Electronics and Cryptology",
+      "position": "Software Developer, Security Researcher",
+      "website": "http://uekae.bilgem.tubitak.gov.tr/en",
+      "startDate": "2009-11-01",
+      "endDate": "2012-04-01",
+      "summary": "Pardus (http://www.pardus.org.tr) is a Linux based operating system developed from scratch, which has its own packaging system, unique configuration manager and installer.",
+      "highlights": [
+        "Worked in coordination with various vendors such as Redhat, Debian, and Gentoo to ensure that the security vulnerabilities are patched, tested and distributed in time",
+        "Built a minimal Pardus image bundled with amateur radio applications to be used for emergency communication. Tested it with hamradio operators in Turkish Radio Amateurs Union",
+        "Packaged a number of open source software to be used in the distibution repository.",
+        "Translated, reported bugs and sent fixes to XFCE, KDE, and Gnome.",
+        "Contributed to various open source projects."
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "CoderDojo",
+      "position": "Teacher",
+      "website": "http://coderdojo.com/",
+      "startDate": "2012-01-01",
+      "endDate": "2013-01-01",
+      "summary": "Global movement of free coding clubs for young people.",
+      "highlights": [
+        "Awarded 'Teacher of the Month'"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "İstanbul Bilgi University",
+      "area": "Computer Science",
+      "studyType": "Bachelor",
+      "startDate": "2010-09-01",
+      "gpa": "3.30"
+    },
+    {
+      "institution": "İstanbul Bilgi University",
+      "area": "English Language Teaching",
+      "studyType": "Bachelor",
+      "startDate": "2009-09-01",
+      "endDate": "2014-06-01",
+      "gpa": "3.20"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Winner of Master The Mainframe Contest",
+      "date": "2012-03-01",
+      "awarder": "IBM",
+      "summary": "Without having any mainframe experience before, I gradually improved my z/OS knowledge through the contest along with mainframe-related topics such as ISPF, SDSF, REXX, JCL, IBM WebSphere, CICS Transaction Server, and Unix System Services."
+    },
+    {
+      "title": "Full Scholarship",
+      "date": "2009-08-01",
+      "awarder": "İstanbul Bilgi University",
+      "summary": "Full scholarship after having a degree in national examination for university entrance."
+    },
+    {
+      "title": "Participant in Google Highly Open Participation Contest",
+      "date": "2007-10-01",
+      "awarder": "Google",
+      "summary": "Participated in GSoC for high school students event in my 2nd grade.",
+      "highlights": [
+        "Awarded asdasd"
+      ]
+    }
+  ],
+  "publications": [
+    {
+      "name": "Video compression for 3d media",
+      "publisher": "Hooli",
+      "releaseDate": "2014-10-01",
+      "website": "http://en.wikipedia.org/wiki/Silicon_Valley_(TV_series)",
+      "summary": "Innovative middle-out compression algorithm that changes the way we store data."
+    }
+  ],
+  "skills": [
+    {
+      "name": "Web Development",
+      "level": "Master",
+      "keywords": [
+        "HTML",
+        "CSS",
+        "Javascript"
+      ]
+    },
+    {
+      "name": "Compression",
+      "level": "Master",
+      "keywords": [
+        "Mpeg",
+        "MP4",
+        "GIF"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Wildlife",
+      "keywords": [
+        "Ferrets",
+        "Unicorns"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "name": "Erlich Bachman",
+      "reference": "It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company."
+    }
+  ]
+}
