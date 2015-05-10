@@ -1,6 +1,6 @@
 Title: Creating Bootable USB For HP Blades (Service Pack)
 Category: blog
-Tags: hp,blade,usb,spp
+Tags: hp,blade,usb,spp,illegal opcode
 Date: 2015-05-10
 
 HP provides service packs for its blade servers. They are distributed as iso images so you need to either burn the iso file to DVD (slow update) or create a bootable USB (fast). Unfortunately, the guide that HP provides for creating bootable USB does not work under **Ubuntu 14.04** using syslinux version **4.05**. When booted, you get a decent red screen saying **illegal opcode** with CPU registers on the screen.
