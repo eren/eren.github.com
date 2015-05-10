@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-PLUGINS = ['plugins.read_more_link']
+PLUGINS = ['plugins.read_more_link', 'plugins.sitemap']
 
 AUTHOR = u'Eren T\xfcrkay'
 SITENAME = u'Eren T\xfcrkay | Blog'
 SITEURL = 'http://localhost:8000'
+
+SITEMAP = {
+    'format': 'xml'
+}
 
 PATH = 'content'
 OUTPUT_PATH = '../blog/'
