@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Eren Türkay | Blog</title><link href="http://erenturkay.com/blog/" rel="alternate"></link><link href="http://erenturkay.com/blog/feeds/all.atom.xml" rel="self"></link><id>http://erenturkay.com/blog/</id><updated>2015-05-10T00:00:00+03:00</updated><entry><title>Creating Bootable USB For HP Blades (Service Pack)</title><link href="http://erenturkay.com/blog/2015/05/10/creating-bootable-usb-for-hp-blades-service-pack/" rel="alternate"></link><updated>2015-05-10T00:00:00+03:00</updated><author><name>Eren Türkay</name></author><id>tag:erenturkay.com,2015-05-10:blog/2015/05/10/creating-bootable-usb-for-hp-blades-service-pack/</id><summary type="html">&lt;p&gt;HP provides service packs for its blade servers. They are distributed as iso images so you need to either burn the iso file to DVD (slow update) or create a bootable USB (fast). Unfortunately, the guide that HP provides for creating bootable USB does not work under &lt;strong&gt;Ubuntu 14.04&lt;/strong&gt; using syslinux version &lt;strong&gt;4.05&lt;/strong&gt;. When booted, you get a decent red screen saying &lt;strong&gt;illegal opcode&lt;/strong&gt; with CPU registers on the screen.&lt;/p&gt;
+&lt;p&gt;I realised that the problem is caused by MBR. Somehow, syslinux in Ubuntu 14.04 causes illegal opcode when booted on HP hardware. After digging the internet, I found &lt;a href="http://www.syslinux.org/archives/2012-December/019047.html"&gt;this e-mail thread&lt;/a&gt; which discusses the same problem. I didn't apply the exact steps mentioned the URL. Here is how you create bootable USB disk for HP Blades under Ubuntu 14.04.&lt;/p&gt;
+&lt;h3&gt;Before starting&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Download SPP iso from HP, mount the ISO &lt;sup id="fnref:iso"&gt;&lt;a class="footnote-ref" href="#fn:iso" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;Get &lt;a href="http://ms-sys.sourceforge.net"&gt;ms-sys&lt;/a&gt; utility. If your distribution has it in its repository, you're lucky, install it with the package manager. If not, compile the software.&lt;/li&gt;
+&lt;li&gt;Plug-in your USB drive.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;Clean MBR, install syslinux&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;!! NOTE !! This part includes important disk operations. Please and please be make sure that you write the correct device name of the USB drive. You can end up with zeroing out your main drive&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Rename sdx with your usb disk path.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# zero-out mbr&lt;/span&gt;
+ms-sys -z /dev/sdx
+
+&lt;span class="c"&gt;# create msdos label&lt;/span&gt;
+parted -s /dev/sdx mklabel msdos
+
+&lt;span class="c"&gt;# write syslinux MBR provided by ms-sys &lt;/span&gt;
+ms-sys -s /dev/sdx
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Partition the drive&lt;/h3&gt;
+&lt;p&gt;I used &lt;strong&gt;gparted&lt;/strong&gt; for partitioning the drive &lt;sup id="fnref:2"&gt;&lt;a class="footnote-ref" href="#fn:2" rel="footnote"&gt;2&lt;/a&gt;&lt;/sup&gt;. Open gparted, select your USB drive, create a new partition, format it with &lt;strong&gt;FAT32&lt;/strong&gt;, select &lt;strong&gt;lba&lt;/strong&gt; and &lt;strong&gt;boot&lt;/strong&gt; flags on the partition.&lt;/p&gt;
+&lt;p&gt;Install syslinux on the partition.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;syslinux -i /dev/sdx1
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;Copy files&lt;/h3&gt;
+&lt;p&gt;Use the following commands to copy files to usb drive. Change the exported settings accordingly to your mount points.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;HP_SOURCE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/mnt/hpiso&amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;HP_USB_DISK&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;/mnt/usbdisk&amp;quot;&lt;/span&gt;
+
+rsync -rltDuvh --progress &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/ &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;/
+
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/initrd.img &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/vmlinuz &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/*.c32 &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/*.jpg &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/blacklist &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/system/sample.msg &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+cp -rf &lt;span class="nv"&gt;$HP_SOURCE&lt;/span&gt;/usb/syslinux.cfg &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+
+&lt;span class="c"&gt;# HP&amp;#39;s vesamenu file gives error. Copy vesamenu from system&lt;/span&gt;
+cp -f /usr/lib/syslinux/vesamenu.c32 &lt;span class="nv"&gt;$HP_USB_DISK&lt;/span&gt;
+
+sync
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Now you are ready to go. Plug out the drive and boot your blade. It should automatically start updating.&lt;/p&gt;
+&lt;h3&gt;Note&lt;/h3&gt;
+&lt;p&gt;I tried this process with &lt;strong&gt;Sandisk Extreme USB 3.0&lt;/strong&gt; thumb drive. It booted correctly, but it failed to boot with &lt;strong&gt;Sandisk &lt;em&gt;Ultra&lt;/em&gt; USB 3.0&lt;/strong&gt;. It seems that there is a difference between usb drives. Check your drive if it boots a live linux distribution.&lt;/p&gt;
+&lt;p&gt;Hope it helps.&lt;/p&gt;
+&lt;div class="footnote"&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id="fn:iso"&gt;
+&lt;p&gt;You can mount the iso using: mount -o loop DISK.iso [LOCATION]&amp;#160;&lt;a class="footnote-backref" href="#fnref:iso" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id="fn:2"&gt;
+&lt;p&gt;I could have used console commands but gparted seemd easier. You can use your favourite disk partitioning tool but gparted is the tested one in this scenario.&amp;#160;&lt;a class="footnote-backref" href="#fnref:2" rev="footnote" title="Jump back to footnote 2 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</summary><category term="hp"></category><category term="blade"></category><category term="usb"></category><category term="spp"></category></entry></feed>
