@@ -1,5 +1,5 @@
 Title: Creating Bootable USB For HP Blades (Service Pack)
-Category: blog
+Category: System Administration
 Tags: hp,blade,usb,spp,illegal opcode
 Date: 2015-05-10
 
