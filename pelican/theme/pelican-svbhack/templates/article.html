@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block head %}
 <meta name="keywords" content="{{ article.tags|join(', ')  }}" >
+{% if article.image %}
 <meta property="og:image" content="{{ article.image }}" />
+{% endif %}
 <meta property="og:title" content="{{ article.title}}" />
 <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}" />
 <meta property="og:type" content="article" />
