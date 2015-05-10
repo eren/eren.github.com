@@ -114,3 +114,6 @@ docs/_build/
 # PyBuilder
 target/
 
+pelican/*.pid
+pelican/pelican.env/
+pelican/cache/
