@@ -14,11 +14,6 @@ OUTPUT_PATH = '../blog/'
 TIMEZONE = 'Europe/Istanbul'
 
 THEME = "theme/pelican-svbhack"
-TAGLINE = """System administrator, software developer, linux enthusiast,
-and hamradio operator. Work @SkyAtlas"""
-
-DISQUS_SITENAME = 'erenturkay-blog'
-USER_LOGO_URL = "http://erenturkay.com/images/avatar.jpeg"
 
 DEFAULT_LANG = u'en'
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
@@ -47,7 +42,7 @@ DEFAULT_PAGINATION = False
 
 SUMMARY_MAX_LENGTH = 75
 READ_MORE_LINK = '<span>continue reading</span>'
-READ_MORE_LINK_FORMAT = '<a class="read-more" href="/{url}">{text}</a>'
+READ_MORE_LINK_FORMAT = '<a class="read-more" href="%s/{url}">{text}</a>' % SITEURL
 
 # Social widget
 SOCIAL = (
