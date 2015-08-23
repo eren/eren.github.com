@@ -25,6 +25,7 @@ TAGLINE = """System administrator, software developer, linux enthusiast,
 and hamradio operator. Work @SkyAtlas"""
 
 DISQUS_SITENAME = 'erenturkay-blog'
+GOOGLE_ANALYTICS = "UA-35983607-1"
 USER_LOGO_URL = "http://erenturkay.com/images/avatar.jpeg"
 
 #DISQUS_SITENAME = ""
