@@ -5,22 +5,29 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://erenturkay.com/blog/</loc>
-<lastmod>2015-05-10T23:30:44-00:00</lastmod>
+<lastmod>2015-08-23T16:26:10-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://erenturkay.com/blog/tags.html</loc>
-<lastmod>2015-05-10T23:30:44-00:00</lastmod>
+<lastmod>2015-08-23T16:26:10-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://erenturkay.com/blog/categories.html</loc>
-<lastmod>2015-05-10T23:30:44-00:00</lastmod>
+<lastmod>2015-08-23T16:26:10-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/2015/08/23/fixing-boot-problem-with-nexentastor-on-supermicro-server-with-lsi-9201-8i-hba-card/</loc>
+<lastmod>2015-08-23T00:00:00+03:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -33,6 +40,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://erenturkay.com/blog/category/system-administration/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/tag/usb/</loc>
 <lastmod>2015-05-10T00:00:00+01:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
@@ -46,8 +60,8 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://erenturkay.com/blog/tag/illegal-opcode/</loc>
-<lastmod>2015-05-10T00:00:00+01:56</lastmod>
+<loc>http://erenturkay.com/blog/tag/supermicro/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -67,15 +81,50 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://erenturkay.com/blog/tag/usb/</loc>
+<loc>http://erenturkay.com/blog/tag/nexentastor/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/tag/lsi-9201-8i/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/tag/illegal-opcode/</loc>
 <lastmod>2015-05-10T00:00:00+01:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
+<loc>http://erenturkay.com/blog/tag/hba/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/tag/boot/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://erenturkay.com/blog/tag/nexenta/</loc>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://erenturkay.com/blog/author/eren-turkay.html</loc>
-<lastmod>2015-05-10T00:00:00+01:56</lastmod>
+<lastmod>2015-08-23T00:00:00+01:56</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

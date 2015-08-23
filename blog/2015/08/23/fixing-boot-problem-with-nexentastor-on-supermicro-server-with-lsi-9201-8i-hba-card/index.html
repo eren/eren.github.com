@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="http://erenturkay.com/blog/theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="http://erenturkay.com/blog/theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://erenturkay.com/blog/theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Eren Türkay">
+  <meta name="description" content="Posts and writings by Eren Türkay">
+
+  <link href="http://erenturkay.com/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="Eren Türkay | Blog Atom" />
+
+<meta name="keywords" content="nexenta, nexentastor, supermicro, hba, lsi-9201-8i, boot" >
+<meta property="og:image" content="https://wordpress.com/i/blank.jpg" />
+<meta property="og:title" content="Fixing Boot Problem with NexentaStor on Supermicro Server with LSI 9201-8i HBA Card" />
+<meta property="og:url" content="http://erenturkay.com/blog/2015/08/23/fixing-boot-problem-with-nexentastor-on-supermicro-server-with-lsi-9201-8i-hba-card/" />
+<meta property="og:type" content="article" />
+
+  <title>
+    Eren Türkay | Blog
+&ndash; Fixing Boot Problem with NexentaStor on Supermicro Server with LSI 9201-8i HBA Card  </title>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35983607-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href="http://erenturkay.com/blog">
+        <img src="http://erenturkay.com/images/avatar.jpeg" alt="logo" width="136px" height="136px">
+      </a>
+      <h2><a href="http://erenturkay.com/blog">Eren Türkay</a></h2>
+      <p>System administrator, software developer, linux enthusiast,
+and hamradio operator. Work @SkyAtlas</p>
+      <ul>
+        <li><a href="http://erenturkay.com/" target="_blank">About</a></li>
+        <li><a href="https://github.com/eren/" target="_blank">Github</a></li>
+        <li><a href="https://twitter.com/erenturkay" target="_blank">Twitter</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href="http://erenturkay.com/blog">Index</a> &brvbar; <a href="http://erenturkay.com/blog/archive/">Archives</a>
+      &brvbar; <a href="http://erenturkay.com/blog/feeds/all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h2><a href="http://erenturkay.com/blog/2015/08/23/fixing-boot-problem-with-nexentastor-on-supermicro-server-with-lsi-9201-8i-hba-card/">Fixing Boot Problem with NexentaStor on Supermicro Server with LSI 9201-8i HBA Card</a></h2>
+  </div>
+  <div class="article_text">
+    <p>I didn't have time to blog about this when I was working on it. After 1 month of fixing the problem and having a time, I decided to write it.</p>
+<p>I spend a couple of hours debugging the boot problem with NexentaStor on supermicro server with LSI 9201-8i HBA card. The LSI card is no longer produced but they can be found on e-bay with a really good price. We had one of those cards that drives our JBOD to be used in Nexenta. This box is simply a medium-sized storage server to which clients connect using iSCSI.</p>
+<h2>Configuration and First Trial</h2>
+<p>The backplane on the server is connected to the first port on the LSI card so that the disks are controlled by it. To be sure absolutely sure, I disabled SATA controller in BIOS. Later, I booted nexenta using a virtual CD (you can mount ISO using IPMI interface of supermicro). The boot process took so long that I thought the server cannot boot from CD when the card is plugged in. However, after waiting a few minutes, it booted successfully.</p>
+<p>In the installation screen, I saw all the disks which are controlled by the LSI card. I selected disk 0 and 1 (mirror) to be used for OS installation. NexentaStor did the magic and finished the installation. However, here the problems started.</p>
+<h2>Symptoms</h2>
+<p>After the installation, I rebooted the server and waited for the boot process. However, I got <em>"no boot disks found"</em> error just as if it's not installed.</p>
+<p>I went to BIOS and checked that the boot order is correct. The first boot device is seen as LSI HBA card. Later, I went to LSI controller and checked the boot device. I saw that there is no boot disk configured in the controller. I checked the boot flag on disk 0, and alternative device for disk 1 (since they're mirrored) and thought that it's going to work. Murphy's law here, it didn't work. I saw the same message again and again.</p>
+<p>I thought maybe there is an issue with the GRUB installation on NexentaStor. I tried Ubuntu Server 14.04 and I got the same message. This meant that the problem is not distro-specific, the problem is isolated to the card.</p>
+<h2>The Fix</h2>
+<p>It was clear that the server failed to boot with LSI card, or LSI card couldn't boot the OS using the disks even if they're set in boot mode. I decided to go with the SATA controller on the motherboard. I got 2 SSD disks and connected them to the motherboard's SATA ports, enabled SATA in BIOS and set the boot order to use those SSD disks. After the installation on SSD disks, the box booted fine, problem solved! :)</p>
+<p>So at the end, the OS is on different disk controller (motherboard) and all the data disks are controlled by LSI card. I like this setup as OS and data are separate.</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: 2015-08-23</p>
+    <p>Category: <a href="http://erenturkay.com/blog/category/system-administration/">System Administration</a>
+ &ndash; Tags:
+      <a href="http://erenturkay.com/blog/tag/nexenta/">nexenta</a>,      <a href="http://erenturkay.com/blog/tag/nexentastor/">nexentastor</a>,      <a href="http://erenturkay.com/blog/tag/supermicro/">supermicro</a>,      <a href="http://erenturkay.com/blog/tag/hba/">hba</a>,      <a href="http://erenturkay.com/blog/tag/lsi-9201-8i/">lsi-9201-8i</a>,      <a href="http://erenturkay.com/blog/tag/boot/">boot</a>    </p>
+  </div>
+
+  <div id="article_comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_identifier = "2015/08/23/fixing-boot-problem-with-nexentastor-on-supermicro-server-with-lsi-9201-8i-hba-card/";
+        (function() {
+             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+             dsq.src = 'http://erenturkay-blog.disqus.com/embed.js';
+             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+         })();
+    </script>
+  </div>
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; Eren Türkay. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>
